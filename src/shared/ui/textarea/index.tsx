@@ -1,21 +1,25 @@
-import React from "react"
-import styles from './styles.module.scss'
+import React from "react";
+import styles from "./styles.module.scss";
 
 interface Props {
-  rows?: number
-  value?: string
-  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void
-  placeholder?: string
+  rows?: number;
+  value?: string;
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  placeholder?: string;
+  disabled?: boolean;
 }
 
-export const TextArea = React.forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
-  return (
-    <div className={styles.field}>
-      <textarea className={styles.textarea}
-        placeholder={props.placeholder}
-        {...props}
-        ref={ref}
-      />
-    </div>
-  )
-})
+export const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
+  (props, ref) => {
+    return (
+      <div className={styles.field}>
+        <textarea
+          className={styles.textarea}
+          placeholder={props.placeholder}
+          {...props}
+          ref={ref}
+        />
+      </div>
+    );
+  }
+);
