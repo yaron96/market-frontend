@@ -1,6 +1,6 @@
 # Please authorize to use all functional !!!
 login: guest@guest.com
-password: guest
+password: guest1
 
 ------------------------------------------------------------------
 
