@@ -6,12 +6,15 @@ import { Product } from "shared/lib/types";
 import { UserActions } from "./UserActions";
 import { API_URL } from "shared/lib/config";
 import styles from "./styles.module.scss";
+import { useIsAuthorized } from "shared/lib/hooks/session";
 
 interface Props {
   product: Product;
 }
 
 export const ProductDetails: React.FC<Props> = ({ product }) => {
+  const isAuthorized = useIsAuthorized();
+
   const [selectedImg, setSelectedImg] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -103,11 +106,8 @@ export const ProductDetails: React.FC<Props> = ({ product }) => {
         </div>
       </div>
       <div>
-            <UserActions
-              productId={product._id}
-              authorId={product.author._id}
-            />
-          </div>
+        {isAuthorized && <UserActions productId={product._id} authorId={product.author._id} />}
+      </div>
     </div>
   );
 };
