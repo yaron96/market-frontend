@@ -60,19 +60,19 @@ export const ProductDetails: React.FC<Props> = ({ product }) => {
           <h2>{`Details about ${product.title}`}</h2>
           <div className={styles.about}>
             <div className={[styles.tr, styles.price].join(" ")}>
-              <a className={styles.td}>Price: </a>
+              <p className={styles.td}>Price: </p>
               <a className={styles.td}>{numberWithSpaces(product.price)} $</a>
             </div>
             <div className={[styles.tr].join(" ")}>
-              <a className={styles.td}>Built: </a>
+              <p className={styles.td}>Built: </p>
               <a className={styles.td}>{product.built}</a>
             </div>
             <div className={[styles.tr].join(" ")}>
-              <a className={styles.td}>Category: </a>
+              <p className={styles.td}>Category: </p>
               <a className={styles.td}>{product.category.title}</a>
             </div>
             <div className={[styles.tr].join(" ")}>
-              <a className={styles.td}>Location: </a>
+              <p className={styles.td}>Location: </p>
               <a className={styles.td}>
                 {`${product.location.title}, ${product.location.country.title}`}
               </a>
@@ -81,15 +81,15 @@ export const ProductDetails: React.FC<Props> = ({ product }) => {
               Tech specs:
             </h2>
             <div className={[styles.tr].join(" ")}>
-              <a className={styles.td}>Length: </a>
+              <p className={styles.td}>Length: </p>
               <a className={styles.td}>{product.length}</a>
             </div>
             <div className={[styles.tr].join(" ")}>
-              <a className={styles.td}>Beam: </a>
+              <p className={styles.td}>Beam: </p>
               <a className={styles.td}>{product.beam}</a>
             </div>
             <div className={[styles.tr, styles.author].join(" ")}>
-              <a className={styles.td}>Author: </a>
+              <p className={styles.td}>Author: </p>
               <Link to={paths.home()}>
                 <div className={styles.tr}>{product.author.nickname}</div>
               </Link>
@@ -99,7 +99,7 @@ export const ProductDetails: React.FC<Props> = ({ product }) => {
       </div>
       <div>
         <div className={[styles.tr].join(" ")}>
-          <a className={styles.td}>{product.description}</a>
+          <p className={styles.td}>{product.description}</p>
         </div>
       </div>
       <div>
