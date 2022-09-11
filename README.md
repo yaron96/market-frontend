@@ -1,3 +1,9 @@
+# Please authorize to use all functional !!!
+login: guest@guest.com
+password: guest
+
+------------------------------------------------------------------
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
