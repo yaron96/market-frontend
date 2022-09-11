@@ -160,7 +160,7 @@ const UserMenu = () => {
       </div>
       <div className={styles["usermenu__aboutlogout"]}>
         <div className={styles["usermenu__about"]}>
-          <h4>{user?.nickname}</h4>
+          <h4>{user?.email}</h4>
         </div>
         <button onClick={handleLogout}>
           <LogoutOutlined />
