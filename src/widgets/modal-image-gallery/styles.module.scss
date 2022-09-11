@@ -1,0 +1,27 @@
+.modal_image_gallery {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+
+    img {
+      max-height: 80vh;
+    }
+  }
+
+  .slider {
+    display: flex;
+    height: 10vh;
+
+    img {
+      height: 10vh;
+      margin-right: 10px;
+    }
+  }
+}

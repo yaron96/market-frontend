@@ -1,0 +1,10 @@
+.send_message {
+  width: 100%;
+
+  .send_button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+}

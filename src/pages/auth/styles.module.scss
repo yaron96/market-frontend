@@ -1,0 +1,15 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    * {
+      margin: 0 15px;
+    }
+  }
+}
