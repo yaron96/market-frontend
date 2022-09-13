@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react'
+import React from 'react'
 import { TAKE } from 'shared/lib/contants'
 import styles from './styles.module.scss'
 
@@ -6,8 +6,8 @@ interface Props {
   totalPages: number
   page: number
   take: number
-  setPage: Dispatch<React.SetStateAction<number>>
-  setTake: Dispatch<React.SetStateAction<number>>
+  setPage: (arg: number) => void;
+  setTake: (arg: number) => void;
 }
 
 export const Pagination: React.FC<Props> = ({

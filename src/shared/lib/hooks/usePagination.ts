@@ -1,26 +1,18 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useState } from "react";
+import { PAGINATION } from "shared/lib/contants/index";
 
-interface Params {
-  initialPage?: number;
-  initialTake?: number;
-}
+export const usePagination = () => {
+  const [page, setPage] = useState(PAGINATION.PAGE);
+  const [take, setTake] = useState(PAGINATION.TAKE);
+  const [total, setTotal] = useState(0);
 
-export const usePagination = (params: Params = {}) => {
+  const setMeta = React.useCallback((meta: Meta) => {
+    setPage(meta.page);
+    setTake(meta.take);
+    setTotal(meta.itemCount);
+  }, []);
 
-    const { initialPage = 1, initialTake = 10 } = params
+  const totalPages = Math.ceil(total / take);
 
-    const [page, setPage] = useState(initialPage)
-    const [take, setTake] = useState(initialTake)
-    const [total, setTotal] = useState(0)
-
-    const setMeta = React.useCallback((meta: Meta) => {
-        setPage(meta.page)
-        setTake(meta.take)
-        setTotal(meta.itemCount)
-    }, [])
-
-    const totalPages = Math.ceil(total / take)
-
-    return { page, take, setMeta, total, totalPages, setPage, setTake };
-}
+  return { page, take, setMeta, total, totalPages, setPage, setTake };
+};

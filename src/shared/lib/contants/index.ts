@@ -16,4 +16,8 @@ export const SORT_BY = {
   UPDATED_DESC: `${DESC}${UPDATED}`,
 };
 
+export const PAGINATION = {
+  PAGE: 1, TAKE: 10,
+}
+
 export const TAKE = [10, 20, 50, 100];

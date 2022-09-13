@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductList } from "widgets";
 import { useProductList } from "entities/product/hooks";
@@ -6,7 +7,6 @@ import { Product } from "shared/lib/types";
 import { MainTemplate, Pagination } from "shared/ui";
 import { paths } from "shared/lib/paths";
 import { FilterOutlined } from "@ant-design/icons";
-import { useState } from "react";
 import styles from "./styles.module.scss";
 
 export const HomePage: React.FC = () => {
@@ -27,6 +27,8 @@ const Products = () => {
     pagination,
     setFilters,
     setSort,
+    setPage,
+    setTake,
   } = useProductList();
 
   const handleProductClick = (product: Product) => {
@@ -78,8 +80,8 @@ const Products = () => {
           totalPages={pagination.totalPages}
           page={pagination.page}
           take={pagination.take}
-          setPage={pagination.setPage}
-          setTake={pagination.setTake}
+          setPage={setPage}
+          setTake={setTake}
         />
       </div>
     </div>
