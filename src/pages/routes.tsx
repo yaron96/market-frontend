@@ -1,4 +1,4 @@
-import { useRoutes } from "react-router";
+import { Navigate, useRoutes } from "react-router";
 import { paths } from "shared/lib/paths";
 import { HomePage } from "./home";
 import { AuthPage } from "./auth";
@@ -9,6 +9,9 @@ import { EditProduct } from "./product-edit";
 
 export const Routes = () => {
   const element = useRoutes([
+    { path: paths.empty(),
+      element: <Navigate to={paths.home()} />
+    },
     {
       path: paths.home(),
       element: <HomePage />,
@@ -23,11 +26,11 @@ export const Routes = () => {
       element: <CreateProduct />,
     },
     {
-      path: paths.editProduct(':id'),
+      path: paths.editProduct(":id"),
       element: <EditProduct />,
     },
     {
-      path: paths.product(':id'),
+      path: paths.product(":id"),
       element: <ProductPage />,
     },
   ]);

@@ -1,4 +1,5 @@
 export const paths = {
+  empty: () => '/',
   home: () => `/${gitHubPages}`,
   auth: () => '/auth',
   signIn: () => '/auth/sign-in',
