@@ -26,6 +26,7 @@ const Products = () => {
     isInit,
     query,
     pagination,
+    filters,
     setFilters,
     sort,
     setSort,
@@ -63,7 +64,7 @@ const Products = () => {
               ].join(" ")
             : styles["filter__form"]
         }>
-          <ProductFilter setFilters={setFilters} />
+          <ProductFilter filters={filters} setFilters={setFilters} />
         </div>
         <div className={styles["filter__toggle"]}>
           <div

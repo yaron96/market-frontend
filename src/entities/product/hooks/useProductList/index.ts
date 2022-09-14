@@ -11,6 +11,7 @@ export const useProductList = () => {
     setPage,
     sort,
     setSort,
+    category,
     setCategory,
     setMinPrice,
     setMaxPrice,
@@ -40,6 +41,9 @@ export const useProductList = () => {
     isInit,
     query,
     pagination,
+    filters: {
+      category
+    },
     setFilters: {
       setCategory,
       setMinPrice,

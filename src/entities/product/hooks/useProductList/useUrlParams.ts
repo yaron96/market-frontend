@@ -101,6 +101,17 @@ export const useUrlParams = () => {
     setParamsInURL(paramsInURL);
   };
 
+  const category = useMemo(() => {
+    const asString = paramsInURL.get(names.category);
+    if (asString) {
+      if (asString.includes(',')) {
+        return asString?.split(',')
+      } else {
+        return [asString]
+      }
+    } 
+  }, [paramsInURL.get(names.category)])
+
   const setCategory = (category: string[]) =>
     universal(names.category, category);
 
@@ -138,8 +149,9 @@ export const useUrlParams = () => {
     params,
     setTake,
     setPage,
-    sort: paramsInURL.get("sort"),
+    sort: paramsInURL.get(names.sort),
     setSort,
+    category,
     setCategory,
     setMinPrice,
     setMaxPrice,

@@ -6,6 +6,9 @@ import { CategoryFilter } from "./category";
 import styles from "./styles.module.scss";
 
 interface Props {
+  filters: {
+    category: string[] | undefined;
+  }
   setFilters: {
     setCategory: (arg: string[]) => void;
     setMinPrice: (arg: number | null | undefined) => void;
@@ -21,6 +24,9 @@ interface Props {
 }
 
 export const ProductFilter: React.FC<Props> = ({
+  filters: {
+    category
+  },
   setFilters: {
     setCategory,
     setMinPrice,
@@ -38,7 +44,7 @@ export const ProductFilter: React.FC<Props> = ({
     <div className={styles["product-filter"]}>
       <div className={styles["product-filter__prop"]}>
         <h1>Category</h1>
-        <CategoryFilter setCategory={setCategory} />
+        <CategoryFilter category={category} setCategory={setCategory} />
       </div>
       <div className={styles["product-filter__prop"]}>
         <h1>Price</h1>
