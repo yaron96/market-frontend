@@ -23,9 +23,11 @@ const Products = () => {
   const navigate = useNavigate();
 
   const {
+    isInit,
     query,
     pagination,
     setFilters,
+    sort,
     setSort,
     setPage,
     setTake,
@@ -36,6 +38,10 @@ const Products = () => {
   };
 
   const [isActive, setIsActive] = useState(false);
+
+  if (!isInit) {
+    return null
+  }
 
   return (
     <div className={styles["products"]}>
@@ -71,7 +77,7 @@ const Products = () => {
       </div>
       <div className={styles["products__list"]}>
         <div>
-          <ProductSort setSort={setSort} />
+          <ProductSort sort={sort} setSort={setSort} />
         </div>
         <ProductList
           products={query?.data?.data}

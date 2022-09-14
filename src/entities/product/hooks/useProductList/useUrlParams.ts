@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SORT_BY, PAGINATION } from "shared/lib/contants";
 import { ProductLocation } from "shared/lib/types";
@@ -19,35 +19,52 @@ enum names {
   maxBeam = "maxBeam",
 }
 
+interface Params {
+  isInit: boolean;
+  value: {
+    [key: string]: any;
+  };
+}
+
 export const useUrlParams = () => {
-  const [params, setParams] = useSearchParams();
+  const [paramsInURL, setParamsInURL] = useSearchParams();
+  const [params, setParams] = useState<Params>({ isInit: false, value: {} });
 
   useEffect(() => {
-    if (!params.has(names.page) || !params.has(names.take)) {
-      if (!params.has(names.page)) {
-        params.set(names.page, PAGINATION.PAGE.toString());
-      }
-      if (!params.has(names.take)) {
-        params.set(names.take, PAGINATION.TAKE.toString());
-      }
-      if (!params.has(names.sort)) {
-        params.set(names.sort, SORT_BY.CREATED_DESC);
-      }
-      setParams(params);
-    }
-  }, [params]);
+    if (isIn()) {
+      const paramsObj: {
+        [key: string]: any;
+      } = Object.fromEntries(paramsInURL);
 
-  const paramsAsObject = useMemo(() => {
-    const asObj: {
-      [key: string]: any;
-    } = Object.fromEntries(params);
-
-    if (asObj[names.category]?.includes(",")) {
-      asObj[names.category] = asObj[names.category].split(",");
+      if (paramsObj[names.category]?.includes(",")) {
+        paramsObj[names.category] = paramsObj[names.category].split(",");
+      }
+      setParams({ isInit: true, value: paramsObj });
+    } else {
+      initiate();
     }
 
-    return asObj;
-  }, [params]);
+    function isIn() {
+      return (
+        paramsInURL.has(names.page) &&
+        paramsInURL.has(names.take) &&
+        paramsInURL.has(names.sort)
+      );
+    }
+
+    function initiate() {
+      if (!paramsInURL.has(names.page)) {
+        paramsInURL.set(names.page, PAGINATION.PAGE.toString());
+      }
+      if (!paramsInURL.has(names.take)) {
+        paramsInURL.set(names.take, PAGINATION.TAKE.toString());
+      }
+      if (!paramsInURL.has(names.sort)) {
+        paramsInURL.set(names.sort, SORT_BY.CREATED_DESC);
+      }
+      setParamsInURL(paramsInURL);
+    }
+  }, [paramsInURL]);
 
   const universal = (
     name: string,
@@ -58,27 +75,30 @@ export const useUrlParams = () => {
       (Array.isArray(value) && value.length) ||
       typeof value === "string"
     ) {
-      params.set(name, typeof value === "string" ? value : value.toString());
-      setParams(params);
+      paramsInURL.set(
+        name,
+        typeof value === "string" ? value : value.toString()
+      );
+      setParamsInURL(paramsInURL);
     } else {
-      params.delete(name);
-      setParams(params);
+      paramsInURL.delete(name);
+      setParamsInURL(paramsInURL);
     }
   };
 
   const setPage = (value: number) => {
-    params.set(names.page, value.toString());
-    setParams(params);
+    paramsInURL.set(names.page, value.toString());
+    setParamsInURL(paramsInURL);
   };
 
   const setTake = (value: number) => {
-    params.set(names.take, value.toString());
-    setParams(params);
+    paramsInURL.set(names.take, value.toString());
+    setParamsInURL(paramsInURL);
   };
 
   const setSort = (value: string) => {
-    params.set(names.sort, value);
-    setParams(params);
+    paramsInURL.set(names.sort, value);
+    setParamsInURL(paramsInURL);
   };
 
   const setCategory = (category: string[]) =>
@@ -115,9 +135,10 @@ export const useUrlParams = () => {
     universal(names.maxBeam, maxBeam);
 
   return {
-    params: paramsAsObject,
+    params,
     setTake,
     setPage,
+    sort: paramsInURL.get("sort"),
     setSort,
     setCategory,
     setMinPrice,

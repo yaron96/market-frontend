@@ -6,9 +6,10 @@ import { useUrlParams } from "./useUrlParams";
 
 export const useProductList = () => {
   const {
-    params,
+    params: { isInit, value },
     setTake,
     setPage,
+    sort,
     setSort,
     setCategory,
     setMinPrice,
@@ -25,9 +26,10 @@ export const useProductList = () => {
   const pagination = usePagination();
 
   const query = useQuery(
-    productKeys.list(params),
-    () => productApi.getProducts(params),
+    productKeys.list(value),
+    () => productApi.getProducts(value),
     {
+      enabled: isInit,
       onSuccess: (data: any) => {
         pagination.setMeta(data.meta);
       },
@@ -35,6 +37,7 @@ export const useProductList = () => {
   );
 
   return {
+    isInit,
     query,
     pagination,
     setFilters: {
@@ -51,6 +54,7 @@ export const useProductList = () => {
     },
     setTake,
     setPage,
+    sort,
     setSort,
   };
 };
