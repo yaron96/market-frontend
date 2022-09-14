@@ -62,6 +62,7 @@ const Products = () => {
         <div className={styles["filter__toggle"]}>
           <div
             className={styles["toggle__btn"]}
+            style={isActive ? {opacity: 1} : {}}
             onClick={() => setIsActive((v) => !v)}
           >
             <FilterOutlined />
