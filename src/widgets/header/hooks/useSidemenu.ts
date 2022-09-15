@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import styles from "./styles.module.scss";
+import styles from "../styles.module.scss";
 
 export const useSidemenu = () => {
   const [isBurgerActive, setIsBurgerActive] = useState(false);

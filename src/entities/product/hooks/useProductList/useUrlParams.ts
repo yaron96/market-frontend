@@ -2,22 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SORT_BY, PAGINATION } from "shared/lib/contants";
 import { ProductLocation } from "shared/lib/types";
-
-enum names {
-  take = "take",
-  page = "page",
-  sort = "sort",
-  category = "category",
-  minPrice = "minPrice",
-  maxPrice = "maxPrice",
-  location = "location",
-  minBuilt = "minBuilt",
-  maxBuilt = "maxBuilt",
-  minLength = "minLength",
-  maxLength = "maxLength",
-  minBeam = "minBeam",
-  maxBeam = "maxBeam",
-}
+import { URL_PARAMS} from "shared/lib/contants";
 
 interface Params {
   isInit: boolean;
@@ -36,8 +21,8 @@ export const useUrlParams = () => {
         [key: string]: any;
       } = Object.fromEntries(paramsInURL);
 
-      if (paramsObj[names.category]?.includes(",")) {
-        paramsObj[names.category] = paramsObj[names.category].split(",");
+      if (paramsObj[URL_PARAMS.category]?.includes(",")) {
+        paramsObj[URL_PARAMS.category] = paramsObj[URL_PARAMS.category].split(",");
       }
       setParams({ isInit: true, value: paramsObj });
     } else {
@@ -46,21 +31,21 @@ export const useUrlParams = () => {
 
     function isIn() {
       return (
-        paramsInURL.has(names.page) &&
-        paramsInURL.has(names.take) &&
-        paramsInURL.has(names.sort)
+        paramsInURL.has(URL_PARAMS.page) &&
+        paramsInURL.has(URL_PARAMS.take) &&
+        paramsInURL.has(URL_PARAMS.sort)
       );
     }
 
     function initiate() {
-      if (!paramsInURL.has(names.page)) {
-        paramsInURL.set(names.page, PAGINATION.PAGE.toString());
+      if (!paramsInURL.has(URL_PARAMS.page)) {
+        paramsInURL.set(URL_PARAMS.page, PAGINATION.PAGE.toString());
       }
-      if (!paramsInURL.has(names.take)) {
-        paramsInURL.set(names.take, PAGINATION.TAKE.toString());
+      if (!paramsInURL.has(URL_PARAMS.take)) {
+        paramsInURL.set(URL_PARAMS.take, PAGINATION.TAKE.toString());
       }
-      if (!paramsInURL.has(names.sort)) {
-        paramsInURL.set(names.sort, SORT_BY.CREATED_DESC);
+      if (!paramsInURL.has(URL_PARAMS.sort)) {
+        paramsInURL.set(URL_PARAMS.sort, SORT_BY.CREATED_DESC);
       }
       setParamsInURL(paramsInURL);
     }
@@ -87,69 +72,69 @@ export const useUrlParams = () => {
   };
 
   const setPage = (value: number) => {
-    paramsInURL.set(names.page, value.toString());
+    paramsInURL.set(URL_PARAMS.page, value.toString());
     setParamsInURL(paramsInURL);
   };
 
   const setTake = (value: number) => {
-    paramsInURL.set(names.take, value.toString());
+    paramsInURL.set(URL_PARAMS.take, value.toString());
     setParamsInURL(paramsInURL);
   };
 
   const setSort = (value: string) => {
-    paramsInURL.set(names.sort, value);
+    paramsInURL.set(URL_PARAMS.sort, value);
     setParamsInURL(paramsInURL);
   };
 
   const category = useMemo(() => {
-    const asString = paramsInURL.get(names.category);
+    const asString = paramsInURL.get(URL_PARAMS.category);
     if (asString) {
-      if (asString.includes(',')) {
-        return asString?.split(',')
+      if (asString.includes(",")) {
+        return asString?.split(",");
       } else {
-        return [asString]
+        return [asString];
       }
-    } 
-  }, [paramsInURL.get(names.category)])
+    }
+  }, [paramsInURL.get(URL_PARAMS.category)]);
 
   const setCategory = (category: string[]) =>
-    universal(names.category, category);
+    universal(URL_PARAMS.category, category);
 
   const setMinPrice = (minPrice: number | null | undefined) =>
-    universal(names.minPrice, minPrice);
+    universal(URL_PARAMS.minPrice, minPrice);
 
   const setMaxPrice = (maxPrice: number | null | undefined) =>
-    universal(names.maxPrice, maxPrice);
+    universal(URL_PARAMS.maxPrice, maxPrice);
 
   const setLocation = (location: ProductLocation | undefined) => {
     location
-      ? universal(names.location, location._id)
-      : universal(names.location, null);
+      ? universal(URL_PARAMS.location, location._id)
+      : universal(URL_PARAMS.location, null);
   };
 
   const setMinBuilt = (minBuilt: number | null | undefined) =>
-    universal(names.minBuilt, minBuilt);
+    universal(URL_PARAMS.minBuilt, minBuilt);
 
   const setMaxBuilt = (maxBuilt: number | null | undefined) =>
-    universal(names.maxBuilt, maxBuilt);
+    universal(URL_PARAMS.maxBuilt, maxBuilt);
 
   const setMinLength = (minLength: number | null | undefined) =>
-    universal(names.minLength, minLength);
+    universal(URL_PARAMS.minLength, minLength);
 
   const setMaxLength = (maxLength: number | null | undefined) =>
-    universal(names.maxLength, maxLength);
+    universal(URL_PARAMS.maxLength, maxLength);
 
   const setMinBeam = (minBeam: number | null | undefined) =>
-    universal(names.minBeam, minBeam);
+    universal(URL_PARAMS.minBeam, minBeam);
 
   const setMaxBeam = (maxBeam: number | null | undefined) =>
-    universal(names.maxBeam, maxBeam);
+    universal(URL_PARAMS.maxBeam, maxBeam);
 
   return {
     params,
     setTake,
     setPage,
-    sort: paramsInURL.get(names.sort),
+    sort: paramsInURL.get(URL_PARAMS.sort),
     setSort,
     category,
     setCategory,

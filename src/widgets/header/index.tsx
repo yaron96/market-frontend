@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import { useHeaderSearch } from "./useHeaderSearch";
-import { useSidemenu } from "./useSidemenu";
 import { logoutThunk } from "entities/session";
+import { useHeaderSearch, useSidemenu } from "./hooks";
 import { useAppDispatch } from "shared/lib/store";
 import { useIsAuthorized, useUser } from "shared/lib/hooks/session";
 import { footerLinks, headerLinks } from "shared/lib/links";

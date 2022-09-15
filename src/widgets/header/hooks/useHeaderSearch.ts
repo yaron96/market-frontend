@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useDebounce } from "shared/lib/hooks/useDebounce";
 import { paths } from "shared/lib/paths";
-import styles from "./styles.module.scss";
+import { URL_PARAMS } from "shared/lib/contants";
+import styles from "../styles.module.scss";
 
 export const useHeaderSearch = () => {
   const location = useLocation();
@@ -15,18 +16,25 @@ export const useHeaderSearch = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const [isInitiated, setIsInitiated] = useState(false);
+
   useEffect(() => {
     if (debounceSearchTerm) {
       if (location.pathname !== paths.home()) {
-        return navigate(`${paths.home()}?search=${debounceSearchTerm}`);
+        return navigate(`${paths.home()}?${URL_PARAMS.search}=${debounceSearchTerm}`);
       } else {
-        urlParams.set("search", debounceSearchTerm);
+        urlParams.set(URL_PARAMS.search, debounceSearchTerm);
         setUrlParams(urlParams);
       }
     } else {
-      if (urlParams.has("search")) {
-        urlParams.delete("search");
-        setUrlParams(urlParams);
+      if (urlParams.has(URL_PARAMS.search)) {
+        if (isInitiated) {
+          urlParams.delete(URL_PARAMS.search);
+          setUrlParams(urlParams);
+        } else {
+          setIsInitiated(true);
+          setSearchValue(`${urlParams.get(URL_PARAMS.search)}`);
+        }
       }
     }
   }, [debounceSearchTerm]);

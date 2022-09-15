@@ -21,3 +21,20 @@ export const PAGINATION = {
 }
 
 export const TAKE = [10, 20, 50, 100];
+
+export enum URL_PARAMS {
+  take = "take",
+  page = "page",
+  sort = "sort",
+  category = "category",
+  minPrice = "minPrice",
+  maxPrice = "maxPrice",
+  location = "location",
+  minBuilt = "minBuilt",
+  maxBuilt = "maxBuilt",
+  minLength = "minLength",
+  maxLength = "maxLength",
+  minBeam = "minBeam",
+  maxBeam = "maxBeam",
+  search = "search",
+}
