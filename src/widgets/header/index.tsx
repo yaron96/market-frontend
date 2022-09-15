@@ -1,32 +1,30 @@
-import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { useHeaderSearch } from "./useHeaderSearch";
+import { useSidemenu } from "./useSidemenu";
 import { logoutThunk } from "entities/session";
 import { useAppDispatch } from "shared/lib/store";
 import { useIsAuthorized, useUser } from "shared/lib/hooks/session";
+import { footerLinks, headerLinks } from "shared/lib/links";
 import { paths } from "shared/lib/paths";
 import { LogoutOutlined, SearchOutlined } from "@ant-design/icons";
-import { footerLinks, headerLinks } from "shared/lib/links";
 import logo from "app/logo.png";
 import styles from "./styles.module.scss";
 
 export const Header = () => {
-  const [isBurgerActive, setIsBurgerActive] = useState(false);
-
-  const [isSearchActive, setIsSearchActive] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (isSearchActive) {
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    } else {
-      setSearchValue("");
-    }
-  }, [isSearchActive]);
-
   const isAuthorized = useIsAuthorized();
+  const {
+    searchValue,
+    setSearchValue,
+    setIsSearchActive,
+    inputRef,
+    headerSearchClassName,
+  } = useHeaderSearch();
+  const {
+    setIsBurgerActive,
+    burgerToggle,
+    burgerButtonClassName,
+    sidemenuClassName,
+  } = useSidemenu();
 
   return (
     <div className={styles["header"]}>
@@ -43,23 +41,13 @@ export const Header = () => {
             </Link>
           ))}
         </div>
-        <div
-          className={
-            isSearchActive
-              ? [
-                  styles["header__search"],
-                  styles["header__search_active"],
-                ].join(" ")
-              : styles["header__search"]
-          }
-        >
+        <div className={headerSearchClassName}>
           <input
             className={styles["search__input"]}
             ref={inputRef}
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             onBlur={(e) => {
-              console.log(e);
               if (!e.relatedTarget?.className.includes("search__icon")) {
                 setIsSearchActive(false);
               }
@@ -68,42 +56,21 @@ export const Header = () => {
           <SearchOutlined
             className={styles["search__icon"]}
             onClick={() => {
-              console.log("click");
-              if (isSearchActive) {
-                //TODO search func
-                console.log("search func");
-                setIsSearchActive(false);
-              } else {
-                setIsSearchActive(true);
-              }
+              setIsSearchActive((curr) => !curr);
             }}
           />
         </div>
         <div className={styles["header__auth"]}>
           {isAuthorized ? <UserMenu /> : <AuthMenu />}
         </div>
-        <div
-          className={
-            isBurgerActive
-              ? [
-                  styles["header__sidemenu-toggle"],
-                  styles["header__sidemenu-toggle_active"],
-                ].join(" ")
-              : styles["header__sidemenu-toggle"]
-          }
-          onClick={() => setIsBurgerActive((val) => !val)}
-        >
+        <div className={burgerButtonClassName} onClick={burgerToggle}>
           <span></span>
           <span></span>
           <span></span>
         </div>
       </div>
       <div
-        className={
-          isBurgerActive
-            ? [styles["sidemenu"], styles["sidemenu_active"]].join(" ")
-            : styles["sidemenu"]
-        }
+        className={sidemenuClassName}
         onClick={() => setIsBurgerActive(false)}
       >
         <div className={styles["sidemenu__auth-links"]}>

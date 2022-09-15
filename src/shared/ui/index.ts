@@ -1,4 +1,3 @@
-export * from './header'
 export * from './footer'
 export * from './main-template'
 export * from './modal'

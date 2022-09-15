@@ -1,8 +1,9 @@
 import React from "react";
-import { MainProvider } from "./providers";
 import { BrowserRouter } from "react-router-dom";
+import { MainProvider } from "./providers";
+import { Header } from "widgets";
 import { Routes } from "pages/routes";
-import { Header, Footer } from "shared/ui";
+import { Footer } from "shared/ui";
 import 'antd/dist/antd.css'
 import './styles/global-styles.css'
 
