@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { authApi, userApi } from "shared/api";
 import { TokenStorage } from "shared/lib/token";
-import { User } from "shared/lib/types";
+import { IUser } from "shared/lib/types";
 
 export interface UserState {
-  user: User | null;
+  user: IUser | null;
   isAuthorized: boolean;
   isSessionInited: boolean;
 }
@@ -19,7 +19,7 @@ export const sessionSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state: UserState, action: PayloadAction<User>) => {
+    setUser: (state: UserState, action: PayloadAction<IUser>) => {
       state.user = action.payload;
     },
     clearUser: (state: UserState) => {
